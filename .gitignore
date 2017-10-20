@@ -11,3 +11,10 @@
 *.h
 *.db
 *.sln
+/Lua与C交互学习/Debug
+/Lua与C交互学习/Lua与C交互学习/Debug/Lua与C交互学习.tlog
+/Lua与C交互学习/Lua与C交互学习/Debug/Lua与C交互学习.log
+/Lua与C交互学习/Lua与C交互学习/Debug/Lua与C交互学习.res
+/Lua与C交互学习/Lua与C交互学习/Debug/main.obj
+/Lua与C交互学习/Lua与C交互学习/Debug/vc140.idb
+/Lua与C交互学习/Lua与C交互学习/Debug/vc140.pdb
