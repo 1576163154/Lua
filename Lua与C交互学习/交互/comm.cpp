@@ -4,8 +4,33 @@
 
 using namespace std;
 
+struct ColorTable
+{
+	char* name;
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+} ct[] = {
+	{"WHITE",1,1,1},
+	{"RED",1,0,0},
+	{"NULL",0,0,0},
+	
+};
 
+//创建一个table 压入 lua环境中去
+void setColor(lua_State* l, ColorTable* ct) {
+	lua_newtable(l);
+	lua_pushnumber(l, ct->red);
+	lua_setfield(l, -2, "r");
 
+	lua_pushnumber(l, ct->green);
+	lua_setfield(l, -2, "g");
+
+	lua_pushnumber(l, ct->blue);
+	lua_setfield(l, -2, "b");
+
+	lua_setglobal(l, ct->name);//弹出talbe，并修改表的名字
+}
 
 
 
@@ -39,6 +64,8 @@ void main() {
 	int h = 0;
 	load(l, "test.lua", &w, &h);
 
+	////////////////////////////从Lua文件中获取
+
 	lua_getglobal(l, "bg");//获取 bg {},
 	lua_pushstring(l, "r");//压入 key “r”
 	lua_gettable(l, -2);//获取 bg[r]
@@ -63,5 +90,18 @@ void main() {
 	//可换为
 	lua_getfield(l, -1, "b");//由于没有向栈中 压入 key，故table 位于-1
 	double blue = lua_tonumber(l, -1);
+
+	////////////////////////////往Lua文件中添加table
+
+	int count = 0;
+	while (ct[count].name != NULL) {
+		setColor(l, &ct[count++]);
+	}
+
+	//此时再从Lua环境获取刚刚添加的 Color
+	lua_getglobal(l, "WHITE");
+	lua_pushstring(l, "r");//压入 key “r”
+	lua_gettable(l, -2);//获取 bg[r]
+	cout << lua_tonumber(l, -1) << endl;
 	system("pause");
 }
