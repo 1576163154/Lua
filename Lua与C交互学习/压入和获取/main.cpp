@@ -1,8 +1,12 @@
 ﻿#include "..\lua53\lua.hpp"
+#include<stdio.h>
 #include<assert.h>
 #include<iostream>
 
 using namespace std;
+
+
+
 
 void main() {
 	lua_State* l = luaL_newstate();
@@ -24,9 +28,19 @@ void main() {
 
 	//lua_pushstring 
 	lua_pushstring(l, "bcdef");
+	
 	const char* b = lua_tostring(l, -1);
 
 
+	//其他栈的操作
+	cout << lua_gettop(l) << endl;//获取栈中元素个数
+	//lua_settop(l, 0);
+	//cout << lua_gettop(l) << endl;
+	lua_pushvalue(l, -3);
+	printf("%s\n", lua_tostring(l, -1));
+	lua_remove(l, -1);
+	printf("%s\n", lua_tostring(l, -1));
 
+	
 	system("pause");
 }
