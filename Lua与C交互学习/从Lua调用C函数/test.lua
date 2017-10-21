@@ -1,0 +1,3 @@
+
+
+print(square(2))
