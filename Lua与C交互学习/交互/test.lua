@@ -13,4 +13,8 @@
  --≈‰÷√≥£”√—’…´
  BLUE = {r=0,b=0,g=1}
 
- print(WHITE["r"])
+ function f(x,y )
+ local a =  (x+y^2)
+ local b = (x^2 + y)
+	return a,b
+end

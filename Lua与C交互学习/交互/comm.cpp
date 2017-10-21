@@ -62,7 +62,7 @@ void main() {
 	luaL_openlibs(l);
 	int w = 0;
 	int h = 0;
-	load(l, "test.lua", &w, &h);
+	load(l, "D:\\IDE\\vsproject\\Lua\\Lua与C交互学习\\交互\\test.lua", &w, &h);
 
 	////////////////////////////从Lua文件中获取
 
@@ -103,5 +103,20 @@ void main() {
 	lua_pushstring(l, "r");//压入 key “r”
 	lua_gettable(l, -2);//获取 bg[r]
 	cout << lua_tonumber(l, -1) << endl;
+
+	lua_settop(l, 0);//清空栈
+	//////////////////////从C中调用Lua中的函数 f(x,y)
+	lua_getglobal(l,"f");//拿到函数指针
+	lua_pushnumber(l, 1.0);//压入x
+	lua_pushnumber(l, 4);//y
+	int ret = lua_pcall(l, 2, 2, 0);//2 parameters，1 return value
+	if (ret != 0) {
+		cout << "函数调用出错！" << endl;
+	}
+	cout << "现在栈的深度：" << lua_gettop(l) << endl;
+	double result1 = lua_tonumber(l, -2); // get first return value
+	double result = lua_tonumber(l, -1); // get second return value
+	
+	cout << "函数f调用结果为："<<result1<<"和"<<result << endl;
 	system("pause");
 }
