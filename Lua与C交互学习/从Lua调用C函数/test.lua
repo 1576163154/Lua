@@ -1,4 +1,4 @@
 
 
-print(square(2))
-print(twoSquare(2,4))
+print(global.square(2))
+print(global.twoSquare(2,4))

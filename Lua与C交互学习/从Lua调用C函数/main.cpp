@@ -33,7 +33,7 @@ static int twoSquare(lua_State* l) {
 static const  luaL_Reg CFuncs[] = {
 	{"square",square},
 	{"twoSquare",twoSquare},
-	{0,0}, //这样结尾
+	{NULL,NULL}, //这样结尾
 };
 
 
@@ -46,16 +46,21 @@ void main() {
 	luaL_loadfile(l, "D:\\IDE\\vsproject\\Lua\\Lua与C交互学习\\从Lua调用C函数\\test.lua");
 
 	//注册C函数，传递函数地址到Lua环境
-	lua_pushcfunction(l, square);
-	lua_setglobal(l, "square");//并将函数名设置为 “square”（全局）
+	//lua_pushcfunction(l, square);
+	//lua_setglobal(l, "square");//并将函数名设置为 “square”（全局）
 
-	 //将多个C函数，以一个模块的形式注册到Lua
-	lua_pushcfunction(l, twoSquare);
-	lua_setglobal(l, "twoSquare");
+	// //将多个C函数，以一个模块的形式注册到Lua
+	//lua_pushcfunction(l, twoSquare);
+	//lua_setglobal(l, "twoSquare");
 
+	//批量注册
+	lua_newtable(l);
+	luaL_setfuncs(l, CFuncs, 0);
+	
+	lua_setglobal(l, "global");
 	luaL_dofile(l, "D:\\IDE\\vsproject\\Lua\\Lua与C交互学习\\从Lua调用C函数\\test.lua");
-
-
+	
+	
 	
 	
 
