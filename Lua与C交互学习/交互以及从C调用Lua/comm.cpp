@@ -118,5 +118,21 @@ void main() {
 	double result = lua_tonumber(l, -1); // get second return value
 	
 	cout << "函数f调用结果为："<<result1<<"和"<<result << endl;
+	
+	
+	lua_settop(l, 0); //clear stack again
+
+	lua_getglobal(l,"my_int_to_string");//find gloabl function f and put into the stack
+	lua_pushnumber(l, 1234.0);//first parameter
+	int ret2 = lua_pcall(l, 1, 1, 0);//2 parameters and 1 return value
+	if (ret2 != 0) {
+		cout << "function execute failed" << endl;
+	}
+	cout << "after call my_int_to_string, the number of elements in the stack :   " << lua_gettop(l) << endl;
+	size_t ret_string_len = 0;
+	const char* ret_string = lua_tolstring(l, -1, &ret_string_len);
+	lua_settop(l, 0); //clear stack again
+	
+	
 	system("pause");
 }

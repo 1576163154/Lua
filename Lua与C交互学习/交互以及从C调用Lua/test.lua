@@ -18,3 +18,9 @@
  local b = (x^2 + y)
 	return a,b
 end
+
+--convert a number to c style string
+--@a number
+function my_int_to_string(a)
+	return tostring(a)
+end
